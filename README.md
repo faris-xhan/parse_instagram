@@ -1,6 +1,6 @@
 # parse_instagram
 
-An Instagram script that will let you parse the PUBLIC INSTAGRAM USER DATA i.e Information, Photos etc. without giving your credentials.
+An Instagram script that will let you parse the **PUBLIC INSTAGRAM USER DATA** i.e Information, Photos etc. without giving your credentials.
 
 ![Python 3.6+](https://img.shields.io/badge/Python-3.6+-3776ab.svg?maxAge=2592000)
 
@@ -8,7 +8,7 @@ An Instagram script that will let you parse the PUBLIC INSTAGRAM USER DATA i.e I
 
 I wrote this to access Instagram's API without giving your password it is an easy to use script and you can use this in your project.
 I am not an expert and this is one of the project that I'm working one during my learning journey. :) 
-It is not complete yet I'm still working on it but you can use it. The following features are available at the moment.
+**It is not fully complete yet I'm still working on it but you can use it. The following features are available at the moment.**
 
 ## Features
 - Get public information of the user in json format 
