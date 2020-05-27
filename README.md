@@ -15,7 +15,7 @@ I am not an expert and this is one of the project that I'm working one during my
 - Get public information of the user in json format 
 - Download instagram user profile photo 
 - Create a python generator of user all posts.
-**( MORE FEATURES WILL BE ADDED SOON )
+**( MORE FEATURES WILL BE ADDED SOON )**
 
 
 ## Usage
