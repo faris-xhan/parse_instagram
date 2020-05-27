@@ -10,11 +10,13 @@ I wrote this to access Instagram's API without giving your password it is an eas
 I am not an expert and this is one of the project that I'm working one during my learning journey. :) 
 **It is not fully complete yet I'm still working on it but you can use it. The following features are available at the moment.**
 
+
 ## Features
 - Get public information of the user in json format 
 - Download instagram user profile photo 
-- Generate a generator which will let you iterate over all the public instagram posts
-( MORE FEATURES WILL BE ADDED SOON )
+- Create a python generator of user all posts.
+**( MORE FEATURES WILL BE ADDED SOON )
+
 
 ## Usage
 
@@ -41,8 +43,8 @@ An [``Instagram Instance``] will contain the following information
 - is_business_account
 - [``contents``]
   It is and instance of Contents class which after at the moment it contains an method [``get_all_contents()``] which will return a generator that will iterate over all the media contents of the user and return a json response containing information about that content 
-  
+
+
 ## Support
 
 Feel free to submit an issue report or pull request.
-
