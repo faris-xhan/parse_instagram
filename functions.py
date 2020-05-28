@@ -4,8 +4,8 @@ import json
 import random
 import requests
 
-class Requests:
-    """ A class with userfull request methods to get data and downlaod files """
+class Functions:
+    """ Set of useful functions that will help us get the job done :) """
     def __init__(self, url=None):
         self.url = url
 
