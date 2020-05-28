@@ -1,8 +1,8 @@
 import re
-from send_requests import Requests
+from functions import Functions
 from contents import Contents
 
-class Instagram(Requests):
+class Instagram(Functions):
     def __init__(self, account=None, url=None):
         """ Initialize the Instagram class and add the account name """
         self.account = account or self._parse_url(url)
