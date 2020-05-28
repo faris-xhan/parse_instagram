@@ -1,6 +1,6 @@
-from send_requests import Requests
+from functions import Functions
 
-class Contents(Requests):
+class Contents(Functions):
     """ A class to download or save media contents details """
 
     def __init__(self, account_id):
