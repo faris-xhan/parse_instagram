@@ -1,49 +1,45 @@
 # parse_instagram
 
-An Instagram script that will let you parse the **PUBLIC INSTAGRAM USER DATA** i.e Information, Photos etc. without giving your credentials.
+An instagram script that will let you download a single are all the instagram photos of a public account with loging in.
 
 ![Python 3.6+](https://img.shields.io/badge/Python-3.6+-3776ab.svg?maxAge=2592000)
 
 ## Overview
 
-I wrote this to access Instagram's API without giving your password it is an easy to use script and you can use this in your project.
-I am not an expert and this is one of the project that I'm working one during my learning journey. :) 
-**It is not fully complete yet I'm still working on it but you can use it. The following features are available at the moment.**
+I wrote this script to download Instagram images. I'm not an expert in python.
+
+**THE SCRIPT IS NOT COMPLETE YET BUT THE SEVER FEATURES ARE AVAILABLE**
 
 
 ## Features
-- Get public information of the user in json format 
+
+- Get public iformation of the user in json formate
 - Download instagram user profile photo 
 - Create a python generator of user's all posts.
+- Download a single post by giving the url of the post.
 **( MORE FEATURES WILL BE ADDED SOON )**
 
 
 ## Usage
 
-```python
+```bash
 
-from instagram import Instagram
-account = Instagram("account")
-accounts.download_profile()
-contents = Instagram.contents.get_all()
-next(contents)
+usage: main.py [-h] [-u USERNAME] [--url URL] [-t TAG] [-d] [-p] [-v]
+
+Scrape Instagram!
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u USERNAME, --username USERNAME
+                        Instagram username
+  --url URL             Download single post from given url
+  -t TAG, --tag TAG     Download posts containing only this tags
+  -d, --detail          Save posts along with their information
+  -p, --photos          Download photos only
+  -v, --videos          Download videos only
+
 
 ```
-An [``Instagram Instance``] will contain the following information
-- id 
-- profile
-- username
-- followers ( total followers )
-- followed ( total user following )
-- biography ( account caption )
-- is_private 
-- is_varified  
-- external_url
-- business_category
-- is_business_account
-- [``contents``]
-  It is and instance of Contents class which after at the moment it contains an method [``get_all_contents()``] which will return a generator that will iterate over all the media contents of the user and return a json response containing information about that content 
-
 
 ## Support
 
