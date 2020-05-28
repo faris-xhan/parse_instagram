@@ -47,18 +47,15 @@ class Functions:
         location: Directory to download the file  """
 
         contents = self._send_requests(url).content
-
         if not file_name:
             file_name = "/".split(url)[-1]
-
         if not location:
             location = f"./Download_File"
-        
         if not os.path.exists(location):
             os.makedirs(location)
         
-        path = os.path.join(location, file_name)
-
+        path = os.path.join(location, file_name)        
+        
         with open(path, "wb") as f:
             f.write(contents)
 

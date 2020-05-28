@@ -3,9 +3,10 @@ from functions import Functions
 class Contents(Functions):
     """ A class to download or save media contents details """
 
-    def __init__(self, account_id):
+    def __init__(self, account_id=None, url=None):
         """ Intialize the content class and create a content object """
         self.account_id = account_id
+        self.url = url
         self.end_cursor = ""          
     
     def get_all_contents(self):
@@ -18,6 +19,14 @@ class Contents(Functions):
             for content in contents:
                 yield self._parse_content_details(content['node'])
 
+    def download_single_post(self):
+        """ Download the single post from given url """
+        response = self._send_requests(self.url).json()
+        detail = self._parse_content_details(response['graphql']['shortcode_media'])
+        file_name = detail['id']
+        download_url = detail['download_url']
+        print(file_name, '------\n',download_url)
+        self._download_contents(download_url, file_name=file_name)
 
     def _parse_content_details(self, content):
         """ parse one content detail at a time and send them back 
@@ -37,9 +46,11 @@ class Contents(Functions):
         data = {}
         content = ['Photos']
         data['id'] = img_obj['id']
-        data['url'] = img_obj['display_url']
-        data['comments'] = img_obj['edge_media_to_comment']['count']
-        # data['caption'] = img_obj['edge_media_to_caption']['edges']['0']['node']['text']
+        data['download_url'] = img_obj['display_url']
+        try:
+            data['comments'] = img_obj['edge_media_to_comment']['count']
+        except:
+            pass
         data['timestamp'] = img_obj['taken_at_timestamp']
         data['location'] = img_obj['location']
 
@@ -51,12 +62,13 @@ class Contents(Functions):
         data = {}
         data['content'] = 'Video'
         data['id'] = vid_obj['id']
-        data['display_url'] = vid_obj['display_url']
-        data['video_url'] = vid_obj['video_url']
-        # data['caption'] = vid_obj['edge_media_to_caption']['edges']['0']['node']['text']
+        data['download_url'] = vid_obj['video_url']
         data['timestamp'] = vid_obj['taken_at_timestamp']
         data['location'] = vid_obj['location']
-        data['comments'] = vid_obj['edge_media_to_comment']['count']
+        try:
+            data['comments'] = vid_obj['edge_media_to_comment']['count']
+        except:
+            pass
 
         return data
 
@@ -67,20 +79,22 @@ class Contents(Functions):
         data = {}
         data['contents'] = []
         data['id'] = side_car_obj['id']
-        data['display_url'] = side_car_obj['display_url']
-        # data['caption'] = side_car_obj['edge_media_to_caption']['edges']['0']['node']['text
+        data['download_url'] = side_car_obj['display_url']
         data['timestamp'] = side_car_obj['taken_at_timestamp']
         data['location'] = side_car_obj['location']
-        data['comments'] = side_car_obj['edge_media_to_comment']['count']
+        try:
+            data['comments'] = side_car_obj['edge_media_to_comment']['count']
+        except:
+            pass
         
         for content in side_car_obj['edge_sidecar_to_children']['edges']:
             content = content['node']
             node = {}
             node['type'] = content['__typename']
             node['id'] = content['id']
-            node['display_url'] = content['display_url']
+            node['download_url'] = content['display_url']
             if node['type'] == 'GraphVideo':
-                node['video_url'] = content['video_url']
+                node['download_url'] = content['video_url']
 
             data['contents'].append(node)
         

@@ -5,13 +5,20 @@ from contents import Contents
 class Instagram(Functions):
     def __init__(self, account=None, url=None):
         """ Initialize the Instagram class and add the account name """
-        self.account = account or self._parse_url(url)
-        self.parse_detail()
+        self.account = account
+        self.post = url
         
-        if not self.is_private:
-            self.contents = Contents(self.id)
-        else:
-            self.contents = "Sorry, account is private !!"
+        if self.account:
+            self.account = account
+            self.parse_detail()
+            if not self.is_private:
+                self.contents = Contents(self.id)
+            else:
+                self.contents = "Sorry, account is private !!"
+        elif self.post:
+            self.url = self._generate_single_post_url(url)
+            self.post = Contents(url=self.url).post()
+
     def parse_detail(self):
         """ Parse account details from instagram """
         self.url = f"https://www.instagram.com/{self.account}/?__a=1" 
@@ -39,28 +46,17 @@ class Instagram(Functions):
         """ Download User Profile """
         self._download_contents(url=self.profile, file_name="profile.jpg")
     
-    def _parse_url(self, url):
+    def _generate_single_post_url(self, url):
         """ parse account name 
-            url: the given instagram account url """
-        
+            url: the given instagram account url """        
         try:
-            regex = re.compile(r"(https://www)?instagram.com/(\w+)/.*")
-            return regex.search(url)[2]
+            regex = re.compile(r"(https://www)?instagram.com/p/(\w+)/.*")
+            post_id = regex.search(url)[2]
+            return f"https://www.instagram.com/p/{post_id}/?__a=1"
+        
         except:
             return None
-    
+
 
     def __repr__(self):
         return f"< Instagram {self.account} >"
-
-
-
-"""
- *** EXAMPLE ***
- ubisoft = Instagram("ubisoft")
- contents = ubisoft.contents.get_all_contens()
- for content in contents:
- 	print(content)
-
- Print all the every media post from the ubisoft user account """
- 
