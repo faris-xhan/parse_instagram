@@ -13,7 +13,9 @@ I wrote this script to download Instagram images. You can download a single post
 
 ## Features
 
-- Download all the photos along with their information.
+- Download all the *posts* along with their information.
+- Download all the *photos only* along with their information.
+- Download all the *videos only* along with their information.
 - Download a single post by giving the url of the post.
 - Download instagram user profile photo 
 
@@ -37,6 +39,7 @@ optional arguments:
   -v, --videos          Download videos only
 
 ```
+To download photos, videos or posts along with their details give the optional parameter [```-d or --detail```]
 
 ## Support
 
