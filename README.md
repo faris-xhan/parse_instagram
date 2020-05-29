@@ -8,8 +8,6 @@ An instagram script that will let you download a single are all the instagram ph
 
 I wrote this script to download Instagram images. You can download a single post by just giving the url of the post and you can also download the public photos of the user by giving the username.
 
-**THE SCRIPT IS NOT COMPLETE YET BUT THE SEVER FEATURES ARE AVAILABLE**
-
 
 ## Features
 
