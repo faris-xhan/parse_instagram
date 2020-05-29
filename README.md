@@ -13,11 +13,9 @@ I wrote this script to download Instagram images. You can download a single post
 
 ## Features
 
-- Get public iformation of the user in json formate
-- Download instagram user profile photo 
-- Create a python generator of user's all posts.
+- Download all the photos along with their information.
 - Download a single post by giving the url of the post.
-**( MORE FEATURES WILL BE ADDED SOON )**
+- Download instagram user profile photo 
 
 
 ## Usage

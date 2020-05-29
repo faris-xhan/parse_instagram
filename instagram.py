@@ -1,4 +1,5 @@
 import re
+import copy
 from functions import Functions
 from contents import Contents
 
@@ -14,7 +15,9 @@ class Instagram(Functions):
             if not self.is_private:
                 self.contents = Contents(self.id)
             else:
-                self.contents = "Sorry, account is private !!"
+                print("Sorry the account is private!!")
+                exit(1)
+
         elif self.post:
             self.url = self._generate_single_post_url(url)
             self.post = Contents(url=self.url).post()
@@ -45,7 +48,11 @@ class Instagram(Functions):
     def download_profile(self):
         """ Download User Profile """
         self._download_contents(url=self.profile, file_name="profile.jpg")
-    
+    def save_details(self):
+        data = copy.deepcopy(self.__dict__)
+        del data['contents']
+        return data, self.username
+
     def _generate_single_post_url(self, url):
         """ parse account name 
             url: the given instagram account url """        

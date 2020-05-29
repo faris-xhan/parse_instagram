@@ -25,7 +25,6 @@ class Contents(Functions):
         detail = self._parse_content_details(response['graphql']['shortcode_media'])
         file_name = detail['id']
         download_url = detail['download_url']
-        print(file_name, '------\n',download_url)
         self._download_contents(download_url, file_name=file_name)
 
     def _parse_content_details(self, content):
@@ -44,61 +43,67 @@ class Contents(Functions):
         """ Parse the detail of the GraphImage object 
             img_obj: JSON data of the image object """
         data = {}
-        content = ['Photos']
+        data['type'] = 'photo'
         data['id'] = img_obj['id']
+        data['file_name'] = data['id'] + '.jpg'
         data['download_url'] = img_obj['display_url']
         try:
             data['comments'] = img_obj['edge_media_to_comment']['count']
         except:
-            pass
+            data['comments'] = None
+        data['caption'] = img_obj['edge_media_to_caption']['edges'][0]['node']['text']
         data['timestamp'] = img_obj['taken_at_timestamp']
         data['location'] = img_obj['location']
 
-        return data
+        return [data]
 
     def _parse_graph_video(self, vid_obj):
         """ Parse the graph video object 
             vid_obj: JSON data of the object """
         data = {}
-        data['content'] = 'Video'
+        data['type'] = 'video'
         data['id'] = vid_obj['id']
+        data['file_name'] = data['id'] + '.mp4'
         data['download_url'] = vid_obj['video_url']
+        data['caption'] = vid_obj['edge_media_to_caption']['edges'][0]['node']['text']
         data['timestamp'] = vid_obj['taken_at_timestamp']
         data['location'] = vid_obj['location']
         try:
             data['comments'] = vid_obj['edge_media_to_comment']['count']
         except:
-            pass
+            data['comments'] = None
 
-        return data
+        return [data]
 
 
     def _parse_graph_side_car(self, side_car_obj):
         """ Parse the graph side car object (Instagram posts that have multiple photos init) 
             side_car_obj: JSON data of the object """
-        data = {}
-        data['contents'] = []
-        data['id'] = side_car_obj['id']
-        data['download_url'] = side_car_obj['display_url']
-        data['timestamp'] = side_car_obj['taken_at_timestamp']
-        data['location'] = side_car_obj['location']
-        try:
-            data['comments'] = side_car_obj['edge_media_to_comment']['count']
-        except:
-            pass
-        
+        all_contents = []
         for content in side_car_obj['edge_sidecar_to_children']['edges']:
             content = content['node']
-            node = {}
-            node['type'] = content['__typename']
-            node['id'] = content['id']
-            node['download_url'] = content['display_url']
-            if node['type'] == 'GraphVideo':
-                node['download_url'] = content['video_url']
+            data = {}
+            if content['__typename'] == 'GraphImage':
+                data['type'] = 'photo'
+                data['download_url'] = content['display_url']
+                data['file_name'] = content['id'] + '.jpg'
 
-            data['contents'].append(node)
+            elif content['__typename'] == 'GraphVidoe':
+                data['type'] = 'video'
+                data['download_url'] = content['video_url']
+                data['file_name'] = content['id'] + '.mp4'
+
+            try:
+                data['comments'] = side_car_obj['edge_media_to_comment']['count']
+            except:
+                pass
         
-        return data
+            data['id'] = content['id']
+            data['location'] = side_car_obj['location']
+            data['timestamp'] = side_car_obj['taken_at_timestamp']
+            
+            all_contents.append(data)
+        return all_contents
 
 
     def _send_query_request(self):
@@ -130,4 +135,4 @@ class Contents(Functions):
                                       # with single quotes wasn't a valid json data for instagram api
     
     def __repr__(self):
-        return f"< Contents Object -> id = {self.account_id} >"
+        return f"< CONTENTS OBJECT >"
