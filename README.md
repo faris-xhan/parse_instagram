@@ -1,6 +1,6 @@
 # parse_instagram
 
-An instagram script that will let you download a single are all the instagram photos of a public account with loging in.
+An instagram script that will let you download a single are all the instagram photos of a public account without loging in.
 
 ![Python 3.6+](https://img.shields.io/badge/Python-3.6+-3776ab.svg?maxAge=2592000)
 
